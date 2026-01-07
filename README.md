@@ -17,4 +17,4 @@ This project implements a multi-agent system for simulating interactions between
 ### Run basic simulations
 Basic executions and examples can be found in Jupyter Notebook *UrbanSimulation.ipynb*
 
-![UrbanMobility](./UrbanModel.gif)
+![UrbanMobility](./images/UrbanModel.gif)
