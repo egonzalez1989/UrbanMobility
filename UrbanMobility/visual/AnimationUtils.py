@@ -3,8 +3,8 @@ from model.UrbanModelling import CityModel, PoisonCityModel
 from utils.UrbanUtils import *
 import agentpy as ap
 
-def animation_plot(model, ax):
-    plot_city(model.city, ax, alpha = '80')
+def animation_plot(model, ax, alpha = '80'):
+    plot_city(model.city, ax, alpha = alpha)
     plot_agents(model.city, ax)
     plot_collisions(model.metrics, ax)
     '''
@@ -71,10 +71,10 @@ def plot_city(city, ax, alpha='ff'):
     grid = np.array([values[city_grid[i, j][0]] for i in range(h) for j in range(w)]).reshape((h, w))
 
     for obst in obstacles:
-        ax.plot([obst[1]], [obst[0]], 'H', markersize=6, markerfacecolor='#636363', markeredgecolor='r',markeredgewidth=1)
+        ax.plot([obst[1]], [obst[0]], 'H', markersize=6, markerfacecolor='#636363', markeredgecolor='r',markeredgewidth=1, alpha=int(alpha, 16) / 256.)
 
     for pth in potholes:
-        ax.plot([pth[1]], [pth[0]], 's', markersize=4, markerfacecolor='#795c34', markeredgecolor='#795c34',markeredgewidth=1)
+        ax.plot([pth[1]], [pth[0]], 's', markersize=4, markerfacecolor='#795c34', markeredgecolor='#795c34',markeredgewidth=1, alpha=int(alpha, 16)/ 256.)
 
     parking_cells  = [tuple(x) for x in np.argwhere(np.array([city_grid[i, j][0] == 'p' for i in range(h) for j in range(w)]).reshape((h, w)))]
     poffset = 1 if parking_cells else 0
@@ -84,8 +84,6 @@ def plot_city(city, ax, alpha='ff'):
 
     # Plotting arrows
     rt_cells = [tuple(x) for x in np.argwhere(np.array([city_grid[i, j][0] == 't' for i in range(h) for j in range(w)]).reshape((h, w)))]
-    ar_offset1 = 2.35 + poffset
-    ar_offset2 = 2.05 + poffset
     for cell in rt_cells:
         if city_grid[cell][1:] == 'NE':
             # Draw right turns
